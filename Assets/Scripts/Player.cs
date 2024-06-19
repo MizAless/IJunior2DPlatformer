@@ -1,20 +1,16 @@
 using UnityEngine;
 
 [SelectionBase]
-[RequireComponent(typeof(GroundDetector))]
-[RequireComponent(typeof(InputReader))]
-[RequireComponent(typeof(JumpController))]
-[RequireComponent(typeof(MoveController))]
-[RequireComponent(typeof(PlayerAnimationController))]
-[RequireComponent(typeof(Health))]
-[RequireComponent(typeof(Wallet))]
+[RequireComponent(typeof(Jumper), typeof(Mover), typeof(Health))]
+[RequireComponent(typeof(Wallet), typeof(GroundDetector), typeof(InputReader))]
+[RequireComponent(typeof(PlayerAnimator))]
 public class Player : MonoBehaviour
 {
     private GroundDetector _groundDetector;
     private InputReader _inputReader;
-    private JumpController _jumpController;
-    private MoveController _moveController;
-    private PlayerAnimationController _playerAnimationController;
+    private Jumper _jumpController;
+    private Mover _moveController;
+    private PlayerAnimator _playerAnimationController;
     private Health _health;
     private Wallet _wallet;
 
@@ -22,9 +18,9 @@ public class Player : MonoBehaviour
     {
         _groundDetector = GetComponent<GroundDetector>();
         _inputReader = GetComponent<InputReader>();
-        _jumpController = GetComponent<JumpController>();
-        _moveController = GetComponent<MoveController>();
-        _playerAnimationController = GetComponent<PlayerAnimationController>();
+        _jumpController = GetComponent<Jumper>();
+        _moveController = GetComponent<Mover>();
+        _playerAnimationController = GetComponent<PlayerAnimator>();
         _health = GetComponent<Health>();
         _wallet = GetComponent<Wallet>();
     }

@@ -6,7 +6,7 @@ public class InputReader : MonoBehaviour
     private const string Horizontal = nameof(Horizontal);
 
     [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
-    [SerializeField] private float _jumpTime = 0.1f;
+    [SerializeField] private float _jumpDisableDelay = 0.1f;
 
     private bool _isJump = false;
 
@@ -22,17 +22,10 @@ public class InputReader : MonoBehaviour
             StartCoroutine(JumpInputCoroutine());
     }
 
-    private bool GetBoolAsTrigger(ref bool value)
-    {
-        bool localValue = value;
-        value = false;
-        return localValue;
-    }
-
     private IEnumerator JumpInputCoroutine()
     {
         _isJump = true;
-        yield return new WaitForSeconds(_jumpTime);
+        yield return new WaitForSeconds(_jumpDisableDelay);
         _isJump = false;
     }
 }

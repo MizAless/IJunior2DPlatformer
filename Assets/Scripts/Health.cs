@@ -13,9 +13,14 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (damage < 0)
+            return;
+
         health -= damage;
 
-        if (health <= 0)
+        health = Mathf.Clamp(health, 0, _maxHealth);
+
+        if (health == 0)
             Die();
     }
 

@@ -19,7 +19,7 @@ public class CoinSpawner : MonoBehaviour
         while (enabled)
         {
             Spawn();
-            yield return new WaitForSeconds(_spawnDelay);
+            yield return spawnDelay;
         }
     }
 

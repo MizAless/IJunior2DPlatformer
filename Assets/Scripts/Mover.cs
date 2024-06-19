@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class MoveController : MonoBehaviour
+public class Mover : MonoBehaviour
 {
     [SerializeField] private float _speed;
 

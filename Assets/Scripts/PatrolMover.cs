@@ -14,19 +14,18 @@ public class PatrolMover : MonoBehaviour
         _currentPathPointIndex = 0;
         _currentPathPoint = _pathPoints[_currentPathPointIndex];
     }
-    private void Move()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, _currentPathPoint.position, _speed * Time.fixedDeltaTime);
-    }
 
     private void FixedUpdate()
     {
         Move();
 
         if (Mathf.Abs(transform.position.x - _currentPathPoint.position.x) <= _offsetError)
-        {
             SetNextPathPoint();
-        }
+    }
+
+    private void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, _currentPathPoint.position, _speed * Time.fixedDeltaTime);
     }
 
     private void SetNextPathPoint()

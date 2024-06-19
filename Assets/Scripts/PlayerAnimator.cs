@@ -1,9 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(InputReader))]
-[RequireComponent(typeof(JumpController))]
-public class PlayerAnimationController : MonoBehaviour
+[RequireComponent(typeof(Animator), typeof(InputReader), typeof(Jumper))]
+public class PlayerAnimator : MonoBehaviour
 {
     private const string IsWalking = nameof(IsWalking);
     private const string IsJumping = nameof(IsJumping);

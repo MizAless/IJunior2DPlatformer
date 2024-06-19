@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody2D))]
 [RequireComponent(typeof(GroundDetector))]
-public class JumpController : MonoBehaviour
+public class Jumper : MonoBehaviour
 {
     [SerializeField] private float _jumpForce;
 
