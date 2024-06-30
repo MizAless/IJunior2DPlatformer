@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Jumper), typeof(Mover), typeof(Health))]
 [RequireComponent(typeof(Wallet), typeof(GroundDetector), typeof(InputReader))]
 [RequireComponent(typeof(PlayerAnimator))]
+[RequireComponent(typeof(HealDetector))]
 public class Player : MonoBehaviour
 {
     private GroundDetector _groundDetector;

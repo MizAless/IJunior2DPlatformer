@@ -4,11 +4,11 @@ public class Health : MonoBehaviour
 {
     [SerializeField] int _maxHealth;
 
-    private int health;
+    private int _health;
 
     private void Awake()
     {
-        health = _maxHealth;
+        _health = _maxHealth;
     }
 
     public void TakeDamage(int damage)
@@ -16,12 +16,35 @@ public class Health : MonoBehaviour
         if (damage < 0)
             return;
 
-        health -= damage;
+        _health -= damage;
 
-        health = Mathf.Clamp(health, 0, _maxHealth);
+        ClampHealth();
 
-        if (health == 0)
+        if (_health == 0)
             Die();
+    }
+
+    public void TakeHeal(int heal)
+    {
+        if (heal < 0)
+            return;
+
+        _health += heal;
+
+        ClampHealth();
+    }
+
+    private void ClampHealth()
+    {
+        _health = Mathf.Clamp(_health, 0, _maxHealth);
+
+        if (gameObject.TryGetComponent<Player>(out _))
+            ShowDebugInfo();
+    }
+
+    private void ShowDebugInfo()
+    {
+        print($"Current health: {_health}");
     }
 
     private void Die()
