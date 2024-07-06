@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -6,9 +7,12 @@ public class Health : MonoBehaviour
 
     private int _health;
 
+    public event Action<int, int> Changed;
+
     private void Awake()
     {
         _health = _maxHealth;
+        Changed?.Invoke(_health, _maxHealth);
     }
 
     public void TakeDamage(int damage)
@@ -19,6 +23,7 @@ public class Health : MonoBehaviour
         _health -= damage;
 
         ClampHealth();
+        Changed?.Invoke(_health, _maxHealth);
 
         if (_health == 0)
             Die();
@@ -32,6 +37,7 @@ public class Health : MonoBehaviour
         _health += heal;
 
         ClampHealth();
+        Changed?.Invoke(_health, _maxHealth);
     }
 
     private void ClampHealth()
