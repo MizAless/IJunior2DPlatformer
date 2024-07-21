@@ -1,24 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthSliderView : MonoBehaviour
+public class HealthSliderView : HealthView
 {
-    [SerializeField] Health _health;
-    [SerializeField] Slider _healthSlider;
+    [SerializeField] protected Slider HealthSlider;
 
-    private void OnEnable()
+    protected override void UpdateView(int health, int maxHealth)
     {
-        _health.Changed += SetHealthSliderValue;
-    }
-
-    private void OnDisable()
-    {
-        _health.Changed -= SetHealthSliderValue;
-    }
-
-    private void SetHealthSliderValue(int health, int maxHealth)
-    {
-        _healthSlider.maxValue = maxHealth;
-        _healthSlider.value = health;
+        HealthSlider.maxValue = maxHealth;
+        HealthSlider.value = health;
     }
 }

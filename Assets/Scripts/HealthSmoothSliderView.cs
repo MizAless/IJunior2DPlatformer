@@ -1,31 +1,15 @@
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class HealthSmoothSliderView : MonoBehaviour
+public class HealthSmoothSliderView : HealthSliderView
 {
-    [SerializeField] Health _health;
-    [SerializeField] Slider _healthSlider;
-    [SerializeField] float changeValueTime = 1f;
+    [SerializeField] private float _changeValueTime = 1f;
 
     private int lastHealthValue = -1;
 
-    private int CurrentHealth => (int)Mathf.Round(_healthSlider.value);
-
-    private void OnEnable()
+    protected override void UpdateView(int health, int maxHealth)
     {
-        _health.Changed += SetHealthSliderValue;
-    }
-
-    private void OnDisable()
-    {
-        _health.Changed -= SetHealthSliderValue;
-    }
-
-    private void SetHealthSliderValue(int health, int maxHealth)
-    {
-        _healthSlider.maxValue = maxHealth;
+        HealthSlider.maxValue = maxHealth;
 
         if (lastHealthValue == -1)
             lastHealthValue = maxHealth;
@@ -40,18 +24,32 @@ public class HealthSmoothSliderView : MonoBehaviour
         lastHealthValue = newHealth;
 
         float changedHealthValue = 0;
-        float changeSpeed = deltaHealth / changeValueTime;
+        float changeSpeed = deltaHealth / _changeValueTime;
         float fixedFrameDeltaHealth = changeSpeed * Time.fixedDeltaTime;
 
         var changeDelay = new WaitForFixedUpdate();
 
         while (Mathf.Abs(changedHealthValue) < Mathf.Abs(deltaHealth))
         {
-            _healthSlider.value -= fixedFrameDeltaHealth;
+            HealthSlider.value -= fixedFrameDeltaHealth;
             changedHealthValue += fixedFrameDeltaHealth;
             yield return changeDelay;
         }
 
-        _healthSlider.value -= deltaHealth - changedHealthValue;
+        HealthSlider.value -= deltaHealth - changedHealthValue;
     }
+
+    //Нерабочий метод
+    //private IEnumerator ChangeSmoothlyHealthSliderValue(int newHealth)
+    //{
+    //    float changeSpeed = (HealthSlider.value - newHealth)  / _changeValueTime;
+
+    //    var changeDelay = new WaitForFixedUpdate();
+
+    //    while (HealthSlider.value != newHealth)
+    //    {
+    //        HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, newHealth, changeSpeed * Time.fixedDeltaTime);
+    //        yield return changeDelay;
+    //    }
+    //}
 }
