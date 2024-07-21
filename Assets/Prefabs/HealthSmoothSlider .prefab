@@ -104,8 +104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 0}
-  _healthSlider: {fileID: 1287455015667302953}
-  changeValueTime: 0.5
+  HealthSlider: {fileID: 1287455015667302953}
+  _changeValueTime: 1
 --- !u!1 &4722299865156075292
 GameObject:
   m_ObjectHideFlags: 0

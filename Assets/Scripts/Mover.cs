@@ -1,9 +1,9 @@
-using TMPro;
 using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private Transform _model;
 
     private float _previousDirection = 1; 
 
@@ -20,8 +20,8 @@ public class Mover : MonoBehaviour
 
     private void Flip()
     {
-        Vector3 currentLocalScale = transform.localScale;
+        Vector3 currentLocalScale = _model.localScale;
         currentLocalScale.x *= -1;
-        transform.localScale = currentLocalScale;
+        _model.localScale = currentLocalScale;
     }
 }

@@ -5,14 +5,19 @@ public class HealthSmoothSliderView : HealthSliderView
 {
     [SerializeField] private float _changeValueTime = 1f;
 
-    private int lastHealthValue = -1;
+    private int lastHealthValue;
+
+    private bool _isFirstChange = true;
 
     protected override void UpdateView(int health, int maxHealth)
     {
         HealthSlider.maxValue = maxHealth;
 
-        if (lastHealthValue == -1)
+        if (_isFirstChange)
+        {
             lastHealthValue = maxHealth;
+            _isFirstChange = false;
+        }
 
         StartCoroutine(ChangeSmoothlyHealthSliderValue(health));
     }
