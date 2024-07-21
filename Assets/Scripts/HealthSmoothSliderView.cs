@@ -38,18 +38,4 @@ public class HealthSmoothSliderView : HealthSliderView
 
         HealthSlider.value -= deltaHealth - changedHealthValue;
     }
-
-    //Нерабочий метод
-    //private IEnumerator ChangeSmoothlyHealthSliderValue(int newHealth)
-    //{
-    //    float changeSpeed = (HealthSlider.value - newHealth)  / _changeValueTime;
-
-    //    var changeDelay = new WaitForFixedUpdate();
-
-    //    while (HealthSlider.value != newHealth)
-    //    {
-    //        HealthSlider.value = Mathf.MoveTowards(HealthSlider.value, newHealth, changeSpeed * Time.fixedDeltaTime);
-    //        yield return changeDelay;
-    //    }
-    //}
 }
