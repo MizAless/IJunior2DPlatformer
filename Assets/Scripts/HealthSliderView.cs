@@ -5,7 +5,7 @@ public class HealthSliderView : HealthView
 {
     [SerializeField] protected Slider HealthSlider;
 
-    protected override void UpdateView(int health, int maxHealth)
+    protected override void UpdateView(float health, float maxHealth)
     {
         HealthSlider.maxValue = maxHealth;
         HealthSlider.value = health;

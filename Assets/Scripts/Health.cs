@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int _maxHealth;
+    [SerializeField] float _maxHealth;
 
-    private int _health;
+    private float _health;
 
-    public event Action<int, int> Changed;
+    public event Action<float, float> Changed;
+    public event Action Died;
 
     private void Awake()
     {
@@ -15,7 +16,7 @@ public class Health : MonoBehaviour
         Changed?.Invoke(_health, _maxHealth);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (damage < 0)
             return;
@@ -29,7 +30,7 @@ public class Health : MonoBehaviour
             Die();
     }
 
-    public void TakeHeal(int heal)
+    public void TakeHeal(float heal)
     {
         if (heal < 0)
             return;
@@ -50,11 +51,12 @@ public class Health : MonoBehaviour
 
     private void ShowDebugInfo()
     {
-        print($"Current health: {_health}");
+        //print($"Current health: {_health}");
     }
 
     private void Die()
     {
+        Died?.Invoke();
         Destroy(gameObject);
     }
 }

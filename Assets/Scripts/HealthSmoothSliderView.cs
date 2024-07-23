@@ -5,11 +5,11 @@ public class HealthSmoothSliderView : HealthSliderView
 {
     [SerializeField] private float _changeValueTime = 1f;
 
-    private int lastHealthValue;
+    private float lastHealthValue;
 
     private bool _isFirstChange = true;
 
-    protected override void UpdateView(int health, int maxHealth)
+    protected override void UpdateView(float health, float maxHealth)
     {
         HealthSlider.maxValue = maxHealth;
 
@@ -22,9 +22,9 @@ public class HealthSmoothSliderView : HealthSliderView
         StartCoroutine(ChangeSmoothlyHealthSliderValue(health));
     }
 
-    private IEnumerator ChangeSmoothlyHealthSliderValue(int newHealth)
+    private IEnumerator ChangeSmoothlyHealthSliderValue(float newHealth)
     {
-        int deltaHealth = lastHealthValue - newHealth;
+        float deltaHealth = lastHealthValue - newHealth;
 
         lastHealthValue = newHealth;
 

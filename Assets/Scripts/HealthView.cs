@@ -1,6 +1,6 @@
 using UnityEngine;
 
-abstract public class HealthView : MonoBehaviour
+public abstract class HealthView : MonoBehaviour
 {
     [SerializeField] private Health _health;
 
@@ -8,5 +8,5 @@ abstract public class HealthView : MonoBehaviour
 
     private void OnDisable() => _health.Changed -= UpdateView;
 
-    protected abstract void UpdateView(int health, int maxHealth);
+    protected abstract void UpdateView(float health, float maxHealth);
 }

@@ -5,34 +5,47 @@ using UnityEngine;
 [RequireComponent(typeof(Wallet), typeof(GroundDetector), typeof(InputReader))]
 [RequireComponent(typeof(PlayerAnimator))]
 [RequireComponent(typeof(HealDetector))]
+[RequireComponent(typeof(Vampire))]
 public class Player : MonoBehaviour
 {
     private GroundDetector _groundDetector;
     private InputReader _inputReader;
-    private Jumper _jumpController;
-    private Mover _moveController;
-    private PlayerAnimator _playerAnimationController;
+    private Jumper _jumper;
+    private Mover _mover;
+    private PlayerAnimator _playerAnimator;
     private Health _health;
     private Wallet _wallet;
+    private Vampire _vimpire;
 
     private void Awake()
     {
         _groundDetector = GetComponent<GroundDetector>();
         _inputReader = GetComponent<InputReader>();
-        _jumpController = GetComponent<Jumper>();
-        _moveController = GetComponent<Mover>();
-        _playerAnimationController = GetComponent<PlayerAnimator>();
+        _jumper = GetComponent<Jumper>();
+        _mover = GetComponent<Mover>();
+        _playerAnimator = GetComponent<PlayerAnimator>();
         _health = GetComponent<Health>();
         _wallet = GetComponent<Wallet>();
+        _vimpire = GetComponent<Vampire>();
+    }
+
+    private void OnEnable()
+    {
+        _inputReader.Vapirized += _vimpire.Vampirize;
+    }
+
+    private void OnDisable()
+    {
+        _inputReader.Vapirized -= _vimpire.Vampirize;
     }
 
     private void FixedUpdate()
     {
         if (_inputReader.HorizontalMove != 0)
-            _moveController.Move(_inputReader.HorizontalMove);
+            _mover.Move(_inputReader.HorizontalMove);
 
         if (_inputReader.IsJump && _groundDetector.IsGround)
-            _jumpController.Jump();
+            _jumper.Jump();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,7 +54,7 @@ public class Player : MonoBehaviour
             _wallet.AddCoins(coin.Collect());
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         _health.TakeDamage(damage);
     }
