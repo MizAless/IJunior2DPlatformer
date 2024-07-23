@@ -51,7 +51,7 @@ public class Health : MonoBehaviour
 
     private void ShowDebugInfo()
     {
-        //print($"Current health: {_health}");
+        print($"Current health: {_health}");
     }
 
     private void Die()
