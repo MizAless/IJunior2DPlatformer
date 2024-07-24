@@ -16,18 +16,24 @@ public class Health : MonoBehaviour
         Changed?.Invoke(_health, _maxHealth);
     }
 
-    public void TakeDamage(float damage)
+    public float TakeDamage(float damage)
     {
+        float takenDamage = 0;
+
         if (damage < 0)
-            return;
+            return takenDamage;
 
         _health -= damage;
+
+        takenDamage = damage > _health ? _health : damage;
 
         ClampHealth();
         Changed?.Invoke(_health, _maxHealth);
 
         if (_health == 0)
             Die();
+
+        return takenDamage;
     }
 
     public void TakeHeal(float heal)

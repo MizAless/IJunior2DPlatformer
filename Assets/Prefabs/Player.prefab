@@ -468,7 +468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _vampire: {fileID: 5170302625345202815}
   _vampirizeArea: {fileID: 6090267769579644309}
-  _vampirizeModel: {fileID: 7665659933430131955}
+  _vampirizeModel: {fileID: 410296645295865418}
   _vampirizeCooldownSlider: {fileID: 7426887378214458180}
 --- !u!1 &3707997471242076230
 GameObject:
@@ -746,6 +746,9 @@ MonoBehaviour:
   _vampirizeCooldown: 2
   _damagePerSecond: 20
   _enemyContainer: {fileID: 0}
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &4892637000359057453
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,6 +907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007580321671242773}
   - component: {fileID: 3949395552404298698}
+  - component: {fileID: 410296645295865418}
   m_Layer: 0
   m_Name: VampirizeModel
   m_TagString: Untagged
@@ -948,6 +952,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &410296645295865418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7665659933430131955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4224dbbc06b7e4c4eadf2e1bb2059d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9104098693446541840
 GameObject:
   m_ObjectHideFlags: 0

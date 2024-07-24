@@ -25,9 +25,9 @@ public class Enemy : MonoBehaviour
         _health.Died -= Die;
     }
 
-    public void TakeDamage(float damage)
+    public float TakeDamage(float damage)
     {
-        _health.TakeDamage(damage);
+        return _health.TakeDamage(damage);
     }
 
     private void Die()

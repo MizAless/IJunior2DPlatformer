@@ -3,16 +3,16 @@ using UnityEngine.UI;
 
 public class VampirizeView : MonoBehaviour
 {
-    private const int radiusToDiameter = 2;
+    private const int RadiusToDiameter = 2;
 
     [SerializeField] private Vampire _vampire;
     [SerializeField] private Transform _vampirizeArea;
-    [SerializeField] private GameObject _vampirizeModel;
+    [SerializeField] private VampirizeModel _vampirizeModel;
     [SerializeField] private Slider _vampirizeCooldownSlider;
 
     private void Awake()
     {
-        float areaDiameter = _vampire.VampirizeRadius * radiusToDiameter;
+        float areaDiameter = _vampire.VampirizeRadius * RadiusToDiameter;
         _vampirizeArea.localScale = Vector3.one * areaDiameter;
     }
 
@@ -33,18 +33,17 @@ public class VampirizeView : MonoBehaviour
 
     private void ActivateView()
     {
-        _vampirizeModel.SetActive(true);
+        _vampirizeModel.gameObject.SetActive(true);
     }
 
     private void ActivateSlider()
     {
-        _vampirizeCooldownSlider.maxValue = _vampire.VampirizeCooldown;
         _vampirizeCooldownSlider.gameObject.SetActive(true);
     }
 
     private void DisactivateView()
     {
-        _vampirizeModel.SetActive(false);
+        _vampirizeModel.gameObject.SetActive(false);
     }
 
     private void DisactivateSlider()
@@ -54,6 +53,7 @@ public class VampirizeView : MonoBehaviour
 
     private void ChangeCooldownSliderValue(float value)
     {
-        _vampirizeCooldownSlider.value = value;
+        float normalizedValue = value / _vampire.VampirizeCooldown;
+        _vampirizeCooldownSlider.value = normalizedValue;
     }
 }

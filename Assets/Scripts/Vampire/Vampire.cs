@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,13 +11,11 @@ public class Vampire : MonoBehaviour
     [SerializeField] private float _vampirizeDuration = 6f;
     [SerializeField] private float _vampirizeCooldown = 2f;
     [SerializeField] private float _damagePerSecond = 15f;
-    [SerializeField] private EnemyContainer _enemyContainer;
+    [SerializeField] private LayerMask enemyMask;
 
     private Health _health;
 
     private bool _canVampirize = true;
-
-    private float _currentCooldownTime;
 
     public float VampirizeRadius => _vampirizeRadius;
     public float VampirizeCooldown => _vampirizeCooldown;
@@ -53,18 +52,27 @@ public class Vampire : MonoBehaviour
         {
             expiredTime += Time.fixedDeltaTime;
 
-            if (_enemyContainer.Enemies.Count > 0)
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _vampirizeRadius, enemyMask);
+
+            List<Enemy> enemies = new();
+
+            foreach (var hit in hits)
+                if (hit.gameObject.TryGetComponent(out Enemy enemy))
+                    enemies.Add(enemy);
+
+            if (enemies.Count > 0)
             {
-                Enemy closestEnemy = _enemyContainer.Enemies.OrderBy(enemy => enemy.transform.position.SqrDistance(transform.position)).FirstOrDefault();
+                Enemy closestEnemy = enemies.OrderBy(enemy => enemy.transform.position.SqrDistance(transform.position)).FirstOrDefault();
 
                 if (closestEnemy.transform.position.IsEnoughClose(transform.position, _vampirizeRadius))
                 {
                     float vimpiredDamage = _damagePerSecond * Time.fixedDeltaTime;
 
-                    closestEnemy.TakeDamage(vimpiredDamage);
-                    _health.TakeHeal(vimpiredDamage);
+                    float dealtDamage = closestEnemy.TakeDamage(vimpiredDamage);
+                    _health.TakeHeal(dealtDamage);
                 }
             }
+
 
             yield return delay;
         }
@@ -77,19 +85,19 @@ public class Vampire : MonoBehaviour
     {
         VampirizeCooldownStarted?.Invoke();
 
-        _currentCooldownTime = 0;
+        float currentCooldownTime = 0;
 
         var delay = new WaitForFixedUpdate();
 
-        while (_currentCooldownTime < _vampirizeCooldown)
+        while (currentCooldownTime < _vampirizeCooldown)
         {
-            _currentCooldownTime += Time.fixedDeltaTime;
-            CurrentCooldownTimeChanged?.Invoke(_currentCooldownTime);
+            currentCooldownTime += Time.fixedDeltaTime;
+            CurrentCooldownTimeChanged?.Invoke(currentCooldownTime);
             yield return delay;
         }
 
-        _currentCooldownTime = _vampirizeCooldown;
-        CurrentCooldownTimeChanged?.Invoke(_currentCooldownTime);
+        currentCooldownTime = _vampirizeCooldown;
+        CurrentCooldownTimeChanged?.Invoke(currentCooldownTime);
 
         _canVampirize = true;
 

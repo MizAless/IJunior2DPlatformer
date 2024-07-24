@@ -5,7 +5,7 @@ public class EnemyContainer : MonoBehaviour
 {
     private List<Enemy> _enemies;
 
-    public List<Enemy> Enemies => _enemies;
+    public List<Enemy> Enemies => new List<Enemy>(_enemies);
 
     private void Awake()
     {
